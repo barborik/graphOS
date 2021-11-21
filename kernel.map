@@ -1,0 +1,69 @@
+Open Watcom Linker Version 2.0 beta Nov 18 2021 00:49:29 (64-bit)
+Copyright (c) 2002-2021 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       21/11/22 00:51:42
+Executable Image: bin\kernel.bin
+creating a RAW Binary Image executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          0000216e             0000000f
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+_TEXT                  CODE           AUTO           00000000        0000016d
+_STACK                 STACK          AUTO           0000016d        00002000
+CONST                  DATA           DGROUP         0000216e        00000005
+CONST2                 DATA           DGROUP         00002174        00000000
+_DATA                  DATA           DGROUP         00002174        00000009
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: bin\kernel.asm.o(src\kernel.asm)
+00000000       _small_code_
+Module: bin\kernel.c.o(C:\Users\Owner\Desktop\OW-test\src\kernel.c)
+0000000c+      putc_
+0000003e+      puts_
+0000005e*      cls_
+00000075+      strcpy_
+00000099+      put_flist_
+00000112+      initg_
+00000153       _kernel_
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  2000 (8192.)
+Memory size:  217d (8573.)
+Entry point address: 00000000
+Link time: 00:00.06
