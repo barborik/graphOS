@@ -1,8 +1,8 @@
 Open Watcom Linker Version 2.0 beta Nov 18 2021 00:49:29 (64-bit)
 Copyright (c) 2002-2021 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       21/11/22 00:51:42
-Executable Image: bin\kernel.bin
+Created on:       21/11/22 23:50:41
+Executable Image: bin\graphOS.bin
 creating a RAW Binary Image executable
 
 
@@ -13,7 +13,7 @@ creating a RAW Binary Image executable
 Group                           Address              Size
 =====                           =======              ====
 
-DGROUP                          0000216e             0000000f
+DGROUP                          00002578             00000044
 
 
 
@@ -24,11 +24,11 @@ DGROUP                          0000216e             0000000f
 Segment                Class          Group          Address         Size
 =======                =====          =====          =======         ====
 
-_TEXT                  CODE           AUTO           00000000        0000016d
-_STACK                 STACK          AUTO           0000016d        00002000
-CONST                  DATA           DGROUP         0000216e        00000005
-CONST2                 DATA           DGROUP         00002174        00000000
-_DATA                  DATA           DGROUP         00002174        00000009
+_TEXT                  CODE           AUTO           00000000        00000578
+_STACK                 STACK          AUTO           00000578        00002000
+CONST                  DATA           DGROUP         00002578        00000036
+CONST2                 DATA           DGROUP         000025ae        00000000
+_DATA                  DATA           DGROUP         000025ae        0000000e
 
 
                         +----------------+
@@ -41,16 +41,23 @@ _DATA                  DATA           DGROUP         00002174        00000009
 Address        Symbol
 =======        ======
 
-Module: bin\kernel.asm.o(src\kernel.asm)
+Module: bin\boot.o(src\boot.asm)
 00000000       _small_code_
-Module: bin\kernel.c.o(C:\Users\Owner\Desktop\OW-test\src\kernel.c)
-0000000c+      putc_
-0000003e+      puts_
-0000005e*      cls_
-00000075+      strcpy_
-00000099+      put_flist_
-00000112+      initg_
-00000153       _kernel_
+Module: bin\kernel.o(C:\Users\Owner\Desktop\graphOS\src\kernel.c)
+00000205+      getc_
+00000222+      putc_
+00000254*      puts_
+0000026f+      puts_c_
+00000291*      puts_l_
+000002b3+      cls_
+000002cb*      fill_b_
+000002e3+      memcpy_
+0000030c+      put_flist_
+00000372+      gen_adjmat_
+00000416+      put_adjmat_
+000004a3+      initg_
+00000511+      cmd_
+0000055b       _kernel_
 
 
                         +--------------------+
@@ -64,6 +71,6 @@ Module: bin\kernel.c.o(C:\Users\Owner\Desktop\OW-test\src\kernel.c)
                         +-----------------------+
 
 Stack size:  2000 (8192.)
-Memory size:  217d (8573.)
+Memory size:  25bc (9660.)
 Entry point address: 00000000
-Link time: 00:00.06
+Link time: 00:00.05

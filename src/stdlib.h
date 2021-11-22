@@ -9,14 +9,31 @@ struct edge
 
 struct graph
 {
-    char nverts;
-    char nedges;
-
     char directed;
-    char *verts;
-    struct edge *edges;
+
+    char verts_n;
+    char edges_n;
+
+    char verts_b[20];
+    struct edge edges_b[256];
+
+    char adjmat[20 * 20];
 };
 
+// get character from keyboard
+char getc()
+{
+    char c;
+    __asm
+    {
+        mov ah, 0
+        int 0x16
+        mov byte ptr [c], al
+    }
+    return c;
+}
+
+// put character at coords
 void putc(char c, int x, int y)
 {
     int off = (y * SCREEN_WIDTH + x) * 2;
@@ -31,15 +48,37 @@ void putc(char c, int x, int y)
     }
 }
 
+// print null-terminated string
 void puts(char *str)
 {
-    int off = 0;
+    int ofs = 0;
     while (*str)
     {
-        putc(*str++, off++, 0);
+        putc(*str++, ofs++, 0);
     }
 }
 
+// print null-terminated string at coords
+void puts_c(char *str, int x, int y)
+{
+    int ofs = SCREEN_WIDTH * y + x;
+    while (*str)
+    {
+        putc(*str++, ofs++, 0);
+    }
+}
+
+// print string with specified length
+void puts_l(char *str, int len)
+{
+    int i;
+    for (i = 0; i < len; i++)
+    {
+        putc(*str++, i, 0);
+    }
+}
+
+// clear screen
 void cls()
 {
     int i;
@@ -49,36 +88,83 @@ void cls()
     }
 }
 
-void strcpy(char *dest, char *src, int num)
+// fill buffer with specified character
+void fill_b(char *buff, char c, int len)
 {
     int i;
+    for (i = 0; i < len; i++)
+    {
+        buff[i] = c;
+    }
+}
+
+// memory copy
+void memcpy(void *dst, void *src, int num)
+{
+    int i;
+    char *d = dst;
+    char *s = src;
     for (i = 0; i < num; i++)
     {
-        dest[i] = src[i];
+        d[i] = s[i];
     }
 }
 
 void put_flist(struct graph *graph)
 {
-    char flist_str[SCREEN_WIDTH * SCREEN_HEIGHT + 1];
-
-    // clear the buffer
-    int i;
-    for (i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT + 1; i++)
-    {
-        flist_str[i] = ' ';
-    }
-    flist_str[SCREEN_WIDTH * SCREEN_HEIGHT] = 0; // null-terminate it
-
     if (graph->directed)
     {
-        char *arrow = "--->";
-        for (i = 0; i < graph->nedges; i++)
+        int i;
+        for (i = 0; i < graph->edges_n; i++)
         {
-            flist_str[SCREEN_WIDTH * i] = graph->edges[i].vert1;
-            strcpy(&flist_str[SCREEN_WIDTH * i + 2], arrow, 4);
+            putc(graph->edges_b[i].vert1, 0, i);
+            putc('-', 2, i);
+            putc('-', 3, i);
+            putc('-', 4, i);
+            putc('>', 5, i);
+            putc(graph->edges_b[i].vert2, 7, i);
         }
     }
+}
 
-    puts(flist_str);
+void gen_adjmat(struct graph *graph)
+{
+    int i;
+    int j;
+    int k;
+
+    for (i = 0; i < graph->verts_n; i++)
+    {
+        for (j = 0; j < graph->verts_n; j++)
+        {
+            int adj_c = 0;
+            for (k = 0; k < graph->edges_n; k++)
+            {
+                if (graph->edges_b[k].vert1 == graph->verts_b[i] && graph->edges_b[k].vert2 == graph->verts_b[j])
+                    adj_c++;
+                else if (graph->edges_b[k].vert1 == graph->verts_b[j] && graph->edges_b[k].vert2 == graph->verts_b[i])
+                    adj_c++;
+            }
+            graph->adjmat[graph->verts_n * i + j] = adj_c;
+        }
+    }
+}
+
+void put_adjmat(struct graph *graph)
+{
+    int i;
+    int j;
+
+    gen_adjmat(graph);
+
+    for (i = 0; i < graph->verts_n; i++)
+    {
+        putc(graph->verts_b[i], 0, i + 2);
+        putc('|', 1, i + 2);
+        putc(graph->verts_b[i], i + 2, 0);
+        putc('-', i + 2, 1);
+
+        for (j = 0; j < graph->verts_n; j++)
+            putc(graph->adjmat[graph->verts_n * i + j] + 48, j + 2, i + 2);
+    }
 }
