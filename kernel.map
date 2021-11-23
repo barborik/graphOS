@@ -1,8 +1,8 @@
-Open Watcom Linker Version 2.0 beta Nov 18 2021 00:49:29 (64-bit)
+Open Watcom Linker Version 2.0 beta Nov 22 2021 00:22:14 (64-bit)
 Copyright (c) 2002-2021 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       21/11/22 23:50:41
-Executable Image: bin\graphOS.bin
+Created on:       21/11/23 10:22:55
+Executable Image: bin/graphOS.bin
 creating a RAW Binary Image executable
 
 
@@ -41,9 +41,9 @@ _DATA                  DATA           DGROUP         000025ae        0000000e
 Address        Symbol
 =======        ======
 
-Module: bin\boot.o(src\boot.asm)
+Module: bin/boot.o(src/boot.asm)
 00000000       _small_code_
-Module: bin\kernel.o(C:\Users\Owner\Desktop\graphOS\src\kernel.c)
+Module: bin/kernel.o(/home/barbo/Desktop/graphOS/src/kernel.c)
 00000205+      getc_
 00000222+      putc_
 00000254*      puts_
@@ -73,4 +73,4 @@ Module: bin\kernel.o(C:\Users\Owner\Desktop\graphOS\src\kernel.c)
 Stack size:  2000 (8192.)
 Memory size:  25bc (9660.)
 Entry point address: 00000000
-Link time: 00:00.05
+Link time: 00:00.90

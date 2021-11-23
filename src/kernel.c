@@ -1,6 +1,5 @@
 #include "stdlib.h"
 
-//  A ---> B ---> C ---> A
 struct graph initg()
 {
     char verts[] = {'A', 'B', 'C', 'D'};
