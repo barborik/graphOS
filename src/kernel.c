@@ -1,4 +1,5 @@
 #include "stdlib.h"
+#include "graph.h"
 
 struct graph initg()
 {
@@ -30,20 +31,24 @@ struct graph initg()
 
 void cmd(struct graph *graph)
 {
+    char vert1;
+    char vert2;
+
     while (1)
     {
     loop_start:
 
         cls();
-        puts_c("1) successors list", 0, 0);
-        puts_c("2) adjacency matrix", 0, 1);
-        puts_c("3) find path between 2 vertices", 0, 2);
+        puts_c("BarboSoft graphOS 2021", 0, 0);
+        puts_c("1) successors list", 0, 2);
+        puts_c("2) adjacency matrix", 0, 3);
+        puts_c("3) find path between 2 vertices", 0, 4);
 
         switch (getc())
         {
         case '1':
             cls();
-            put_slist(graph, 'C');
+            put_slist(graph);
             break;
         case '2':
             cls();
@@ -51,7 +56,13 @@ void cmd(struct graph *graph)
             break;
         case '3':
             cls();
-            bf_path2v(graph, 'A', 'A');
+            puts("press key with ascii value of vertex 1");
+            vert1 = getc();
+            cls();
+            puts("press key with ascii value of vertex 2");
+            vert2 = getc();
+
+            fill_b(put_path(fpath_2v(graph, vert1, vert2)), 0, MAX_VERTS);
             break;
         default:
             goto loop_start;
