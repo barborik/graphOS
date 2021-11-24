@@ -1,6 +1,9 @@
 #define SCREEN_WIDTH 80
 #define SCREEN_HEIGHT 25
 
+#define MAX_VERTS 20
+#define MAX EDGES 256
+
 struct edge
 {
     char vert1;
@@ -14,10 +17,10 @@ struct graph
     char verts_n;
     char edges_n;
 
-    char verts_b[20];
-    struct edge edges_b[256];
+    char verts_b[MAX_VERTS];
+    struct edge edges_b[MAX_EDGES];
 
-    char adjmat[20 * 20];
+    char adjmat[MAX_VERTS * MAX_VERTS];
 };
 
 // get character from keyboard
@@ -108,6 +111,34 @@ void memcpy(void *dst, void *src, int num)
     {
         d[i] = s[i];
     }
+}
+
+struct traversed
+{
+	int num,
+	struct edge *buff[MAX_EDGES],
+};
+
+int put_srow(struct graph *graph, struct traversed *traversed, char vert, int ofs_x, int ofs_y)
+{
+	int i;
+	int j;
+	while(vert)
+	{
+	for (i = 0; i < graph->edges_n; i++)
+	{
+		if(graph->edges_b[i].vert1 == vert)
+		{
+		// check if not already traversed
+		for (j = 0; j < traversed->num; j++)
+			if(&graph->edges_b[i] == traversed->buff[j])
+				continue;
+		// continue if not
+		puts_c("-->", ofs_x, ofs_y);
+
+		}
+	}
+	}
 }
 
 void put_slist(struct graph *graph, char vert)
