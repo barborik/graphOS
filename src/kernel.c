@@ -2,22 +2,25 @@
 
 struct graph initg()
 {
-    char verts[] = {'A', 'B', 'C', 'D'};
+    char verts[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
 
     struct edge edges[] = {
-        {'A', 'B'},
-        {'B', 'C'},
-        {'C', 'A'},
-        {'D', 'A'},
+        {'A', 'D'},
         {'B', 'D'},
+        {'C', 'D'},
+        {'E', 'C'},
+        {'C', 'G'},
+        {'B', 'G'},
+        {'G', 'G'},
+        {'E', 'C'},
     };
 
     struct graph graph;
 
     graph.directed = 1;
 
-    graph.verts_n = 4;
-    graph.edges_n = 5;
+    graph.verts_n = 7;
+    graph.edges_n = 8;
 
     memcpy(graph.verts_b, verts, graph.verts_n);
     memcpy(graph.edges_b, edges, graph.edges_n * sizeof(struct edge));
@@ -29,20 +32,29 @@ void cmd(struct graph *graph)
 {
     while (1)
     {
+    loop_start:
+
         cls();
-        puts_c("1) neighbor list", 0, 0);
+        puts_c("1) successors list", 0, 0);
         puts_c("2) adjacency matrix", 0, 1);
+        puts_c("3) find path between 2 vertices", 0, 2);
 
         switch (getc())
         {
         case '1':
             cls();
-            put_flist(graph);
+            put_slist(graph, 'C');
             break;
         case '2':
             cls();
             put_adjmat(graph);
             break;
+        case '3':
+            cls();
+            bf_path2v(graph, 'A', 'A');
+            break;
+        default:
+            goto loop_start;
         }
 
         puts_c("press any key...", 0, SCREEN_HEIGHT - 1);
@@ -50,7 +62,7 @@ void cmd(struct graph *graph)
     }
 }
 
-int _kernel()
+int kernel()
 {
     struct graph graph = initg();
     cmd(&graph);

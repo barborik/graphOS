@@ -110,19 +110,34 @@ void memcpy(void *dst, void *src, int num)
     }
 }
 
-void put_flist(struct graph *graph)
+void put_slist(struct graph *graph, char vert)
 {
     if (graph->directed)
     {
+        char cvert = vert;
+        int traversed_n = 0;
+        struct edge *traversed_b[256];
+
         int i;
+        int j;
         for (i = 0; i < graph->edges_n; i++)
         {
-            putc(graph->edges_b[i].vert1, 0, i);
-            putc('-', 2, i);
-            putc('-', 3, i);
-            putc('-', 4, i);
-            putc('>', 5, i);
-            putc(graph->edges_b[i].vert2, 7, i);
+            // check if exists
+            if (graph->edges_b[i].vert1 == cvert)
+            {
+                // check if not already traversed
+                for (j = 0; j < graph->edges_n; j++)
+                    if (&graph->edges_b[i] == traversed_b[j])
+                        goto next_edge;
+                // continue if not
+                putc(graph->edges_b[i].vert1, 6 * traversed_n, 0);
+                puts_c("--->", 6 * traversed_n + 2, 0);
+                putc(graph->edges_b[i].vert2, 6 * traversed_n + 7, 0);
+
+                traversed_n++;
+                cvert = graph->edges_b[i].vert2;
+            }
+        next_edge:;
         }
     }
 }
@@ -166,5 +181,12 @@ void put_adjmat(struct graph *graph)
 
         for (j = 0; j < graph->verts_n; j++)
             putc(graph->adjmat[graph->verts_n * i + j] + 48, j + 2, i + 2);
+    }
+}
+
+int bf_path2v(struct graph *graph, char vert1, char vert2)
+{
+    if (graph->directed)
+    {
     }
 }

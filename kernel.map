@@ -1,8 +1,8 @@
-Open Watcom Linker Version 2.0 beta Nov 22 2021 00:22:14 (64-bit)
+Open Watcom Linker Version 2.0 beta Nov 18 2021 00:49:29 (64-bit)
 Copyright (c) 2002-2021 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       21/11/23 10:22:55
-Executable Image: bin/graphOS.bin
+Created on:       21/11/24 01:01:56
+Executable Image: bin\graphOS.bin
 creating a RAW Binary Image executable
 
 
@@ -13,7 +13,7 @@ creating a RAW Binary Image executable
 Group                           Address              Size
 =====                           =======              ====
 
-DGROUP                          00002578             00000044
+DGROUP                          000025c6             00000075
 
 
 
@@ -24,11 +24,11 @@ DGROUP                          00002578             00000044
 Segment                Class          Group          Address         Size
 =======                =====          =====          =======         ====
 
-_TEXT                  CODE           AUTO           00000000        00000578
-_STACK                 STACK          AUTO           00000578        00002000
-CONST                  DATA           DGROUP         00002578        00000036
-CONST2                 DATA           DGROUP         000025ae        00000000
-_DATA                  DATA           DGROUP         000025ae        0000000e
+_TEXT                  CODE           AUTO           00000000        000005c5
+_STACK                 STACK          AUTO           000005c5        00002000
+CONST                  DATA           DGROUP         000025c6        0000005d
+CONST2                 DATA           DGROUP         00002624        00000000
+_DATA                  DATA           DGROUP         00002624        00000017
 
 
                         +----------------+
@@ -41,23 +41,24 @@ _DATA                  DATA           DGROUP         000025ae        0000000e
 Address        Symbol
 =======        ======
 
-Module: bin/boot.o(src/boot.asm)
+Module: bin\boot.o(src\boot.asm)
 00000000       _small_code_
-Module: bin/kernel.o(/home/barbo/Desktop/graphOS/src/kernel.c)
+Module: bin\kernel.o(C:\Users\Owner\Desktop\graphOS\src\kernel.c)
 00000205+      getc_
 00000222+      putc_
 00000254*      puts_
 0000026f+      puts_c_
 00000291*      puts_l_
+000002b2*      bf_path2v_
 000002b3+      cls_
 000002cb*      fill_b_
 000002e3+      memcpy_
-0000030c+      put_flist_
-00000372+      gen_adjmat_
-00000416+      put_adjmat_
-000004a3+      initg_
-00000511+      cmd_
-0000055b       _kernel_
+0000030c+      put_slist_
+000003a4+      gen_adjmat_
+00000448+      put_adjmat_
+000004d5+      initg_
+00000540+      cmd_
+000005a8       kernel_
 
 
                         +--------------------+
@@ -71,6 +72,6 @@ Module: bin/kernel.o(/home/barbo/Desktop/graphOS/src/kernel.c)
                         +-----------------------+
 
 Stack size:  2000 (8192.)
-Memory size:  25bc (9660.)
+Memory size:  263b (9787.)
 Entry point address: 00000000
-Link time: 00:00.90
+Link time: 00:00.05
